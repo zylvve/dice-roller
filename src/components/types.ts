@@ -7,5 +7,5 @@ export interface DiceVariant {
 export interface Die {
   id: number;
   maxValue: number;
-  currentValue?: number;
+  currentValue: number;
 }

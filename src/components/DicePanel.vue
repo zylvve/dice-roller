@@ -11,10 +11,26 @@ defineEmits<{
 </script>
 
 <template>
-  <div>DicePanel</div>
-  <li v-for="variant in diceVariants" :key="variant.id">
-    <div @click="$emit('addDie', variant.maxValue)">
-      {{ variant.maxValue }}
+  <div class="dice-panel">
+    <div
+      class="die-container"
+      v-for="variant in diceVariants"
+      :key="variant.id"
+      @click="$emit('addDie', variant.maxValue)"
+    >
+      d{{ variant.maxValue }}
     </div>
-  </li>
+  </div>
 </template>
+
+<style scoped>
+.dice-panel {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+.die-container {
+  background-color: blue;
+}
+</style>
