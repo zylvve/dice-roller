@@ -1,5 +1,8 @@
+<script setup lang="ts">
+import MainArea from './components/MainArea.vue';
+
+</script>
+
 <template>
-  <main>
-    <h1>Dice Roller</h1>
-  </main>
+  <MainArea/>
 </template>
