@@ -20,6 +20,7 @@ const addDie = (variantId: number) => {
   const variant = diceVariants.value.find(v => v.id === variantId);
   if (!variant) return;
 
+  variant.count++;
   dice.value.push({
     id: ++dieId,
     name: variant.name,
@@ -36,7 +37,14 @@ const rollDie = (id: number) => {
 }
 
 const deleteDie = (id: number) => {
+  const die = dice.value.find(d => d.id === id);
+  if (!die) return;
+
+  const variant = diceVariants.value.find(v => v.maxValue === die.maxValue);
+  if (!variant) return;
+
   dice.value = dice.value.filter(d => d.id !== id);
+  variant.count--;
 }
 </script>
 
@@ -47,6 +55,7 @@ const deleteDie = (id: number) => {
       @addDie="addDie"
     />
     <RollArea
+      :dice-variants="diceVariants"
       :dice="dice"
       @rollDie="rollDie"
       @deleteDie="deleteDie"
@@ -60,5 +69,7 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  font-weight: bold;
 }
 </style>

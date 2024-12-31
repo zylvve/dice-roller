@@ -46,7 +46,6 @@ defineEmits(['delete-btn-press'])
   justify-content: center;
 
   font-size: 1.5rem;
-  font-weight: bold;
   color: white;
 
   cursor: default;
@@ -83,8 +82,6 @@ defineEmits(['delete-btn-press'])
   outline: none;
   background-color: transparent;
   color: black;
-
-  font-weight: bold;
 
   display: none;
 }
