@@ -34,12 +34,23 @@ const rollDie = (id: number) => {
 
   die.currentValue = Math.floor(Math.random() * die.maxValue) + 1;
 }
+
+const deleteDie = (id: number) => {
+  dice.value = dice.value.filter(d => d.id !== id);
+}
 </script>
 
 <template>
   <main>
-    <DicePanel :dice-variants="diceVariants" @addDie="addDie"/>
-    <RollArea :dice="dice" @rollDie="rollDie"/>
+    <DicePanel
+      :dice-variants="diceVariants"
+      @addDie="addDie"
+    />
+    <RollArea
+      :dice="dice"
+      @rollDie="rollDie"
+      @deleteDie="deleteDie"
+    />
   </main>
 </template>
 

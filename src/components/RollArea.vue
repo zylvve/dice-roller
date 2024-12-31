@@ -8,7 +8,8 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  rollDie: [id: number ];
+  rollDie: [id: number];
+  deleteDie: [id: number];
 }>()
 
 const rollTotal = computed(() =>
@@ -20,6 +21,7 @@ const rollAll = () => {
     emit("rollDie", die.id);
   }
 }
+
 </script>
 
 <template>
@@ -27,9 +29,11 @@ const rollAll = () => {
     <div class="dice-container">
       <DieContainer
         v-for="die in dice"
+        type="roll-die"
         :name="die.name"
         :key="die.id"
         @click="$emit('rollDie', die.id)"
+        @delete-btn-press="$emit('deleteDie', die.id)"
       >
         {{ die.currentValue }}
         <div class="die-variant">
@@ -44,7 +48,7 @@ const rollAll = () => {
   </div>
 </template>
 
-<style scoped>
+<style>
 .roll-area {
   display: flex;
   flex-direction: column;
@@ -54,12 +58,6 @@ const rollAll = () => {
   display: flex;
   padding: 1rem;
   gap: 1rem;
-}
-
-.die-container {
-  background-color: red;
-
-  position: relative;
 }
 
 .die-variant {

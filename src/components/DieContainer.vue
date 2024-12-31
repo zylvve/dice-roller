@@ -1,19 +1,43 @@
 <script setup lang="ts">
 
 defineProps<{
+  type: "add-die" | "roll-die";
   name: string;
 }>()
+
+defineEmits(['delete-btn-press'])
 
 </script>
 
 <template>
-  <div class="die-container" :class="name">
-    <slot/>
+  <div class="die-container" :class="type">
+    <div class="die-shape" :class="name">
+      <slot/>
+    </div>
+    <button
+      v-if="type === 'roll-die'"
+      class="delete-btn"
+      @click="$emit('delete-btn-press')"
+    >
+    x
+    </button>
   </div>
 </template>
 
 <style>
 .die-container {
+  position: relative;
+}
+
+.add-die .die-shape{
+  background-color: blue;
+}
+
+.roll-die .die-shape{
+  background-color: red;
+}
+
+.die-shape {
   width: 4rem;
   height: 4rem;
 
@@ -27,6 +51,8 @@ defineProps<{
 
   cursor: default;
   user-select: none;
+
+  position: relative;
 }
 
 .d4 {
@@ -47,4 +73,24 @@ defineProps<{
 .d20 {
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
+
+.delete-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: black;
+
+  font-weight: bold;
+
+  display: none;
+}
+
+.die-container:hover .delete-btn {
+  display: block;
+}
+
 </style>

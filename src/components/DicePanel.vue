@@ -15,6 +15,7 @@ defineEmits<{
   <div class="dice-panel">
     <DieContainer
       v-for="variant in diceVariants"
+      type="add-die"
       :name="variant.name"
       :key="variant.id"
       @click="$emit('addDie', variant.id)"
@@ -24,14 +25,10 @@ defineEmits<{
   </div>
 </template>
 
-<style scoped>
+<style>
 .dice-panel {
   display: flex;
   padding: 1rem;
   gap: 1rem;
-}
-
-.die-container {
-  background-color: blue;
 }
 </style>
