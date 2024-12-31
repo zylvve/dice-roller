@@ -5,21 +5,25 @@ import RollArea from './RollArea.vue';
 import { type Die, type DiceVariant } from './types';
 
 const diceVariants = ref<DiceVariant[]>([
-  { id: 1, maxValue: 4, count: 0 },
-  { id: 2, maxValue: 6, count: 0 },
-  { id: 3, maxValue: 8, count: 0 },
-  { id: 4, maxValue: 10, count: 0 },
-  { id: 5, maxValue: 12, count: 0 },
-  { id: 6, maxValue: 20, count: 0 },
+  { id: 1, name: 'd4', maxValue: 4, count: 0 },
+  { id: 2, name: 'd6', maxValue: 6, count: 0 },
+  { id: 3, name: 'd8', maxValue: 8, count: 0 },
+  { id: 4, name: 'd10', maxValue: 10, count: 0 },
+  { id: 5, name: 'd12', maxValue: 12, count: 0 },
+  { id: 6, name: 'd20', maxValue: 20, count: 0 },
 ]);
 
 const dice = ref<Die[]>([]);
 
 let dieId = 0;
-const addDie = (maxValue: number) => {
+const addDie = (variantId: number) => {
+  const variant = diceVariants.value.find(v => v.id === variantId);
+  if (!variant) return;
+
   dice.value.push({
     id: ++dieId,
-    maxValue,
+    name: variant.name,
+    maxValue: variant.maxValue,
     currentValue: 0,
   });
 }
@@ -34,7 +38,7 @@ const rollDie = (id: number) => {
 
 <template>
   <main>
-    <DicePanel :diceVariants="diceVariants" @addDie="addDie"/>
+    <DicePanel :dice-variants="diceVariants" @addDie="addDie"/>
     <RollArea :dice="dice" @rollDie="rollDie"/>
   </main>
 </template>
@@ -46,23 +50,4 @@ main {
   flex-direction: column;
   align-items: center;
 }
-
-.die-container {
-  width: 4rem;
-  height: 4rem;
-
-  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: white;
-
-  cursor: default;
-  user-select: none;
-}
-
 </style>

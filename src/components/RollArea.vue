@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import type { Die } from './types';
+import DieContainer from './DieContainer.vue';
 
 const props = defineProps<{
   dice: Die[];
@@ -24,9 +25,9 @@ const rollAll = () => {
 <template>
   <div class="roll-area">
     <div class="dice-container">
-      <div
-        class="die-container"
+      <DieContainer
         v-for="die in dice"
+        :name="die.name"
         :key="die.id"
         @click="$emit('rollDie', die.id)"
       >
@@ -34,7 +35,7 @@ const rollAll = () => {
         <div class="die-variant">
           d{{ die.maxValue }}
         </div>
-      </div>
+      </DieContainer>
     </div>
     <button class="roll-all-btn" @click="rollAll">Roll all</button>
     <div class="total">

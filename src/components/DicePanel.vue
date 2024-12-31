@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import DieContainer from './DieContainer.vue';
 import type { DiceVariant } from './types';
 
 defineProps<{
@@ -12,14 +13,14 @@ defineEmits<{
 
 <template>
   <div class="dice-panel">
-    <div
-      class="die-container"
+    <DieContainer
       v-for="variant in diceVariants"
+      :name="variant.name"
       :key="variant.id"
-      @click="$emit('addDie', variant.maxValue)"
+      @click="$emit('addDie', variant.id)"
     >
       d{{ variant.maxValue }}
-    </div>
+    </DieContainer>
   </div>
 </template>
 
