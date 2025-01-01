@@ -54,7 +54,7 @@ const rollAll = () => {
         @click="$emit('rollDie', die.id)"
         @delete-btn-press="$emit('deleteDie', die.id)"
       >
-        {{ die.currentValue }}
+        {{ die.currentValue || "?" }}
         <div class="die-variant">
           d{{ die.maxValue }}
         </div>
@@ -92,7 +92,7 @@ const rollAll = () => {
   border: none;
   outline: none;
 
-  background-color: red;
-  color: white;
+  background-color: var(--color-bg-secondary);
+  color: var(--color-fg-primary);
 }
 </style>

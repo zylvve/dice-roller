@@ -71,5 +71,8 @@ main {
   align-items: center;
 
   font-weight: bold;
+
+  background-color: var(--color-bg-primary);
+  color: var(--color-fg-primary);
 }
 </style>

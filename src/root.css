@@ -1,0 +1,13 @@
+/* Night Owl theme */
+:root {
+  --color-bg-primary: #011627;
+  --color-bg-secondary: #1d3b53;
+  --color-fg-primary: #d6deeb;
+  
+  --color-die-1: #ef5350;
+  --color-die-2: #22da6e;
+  --color-die-3: #c5e478;
+  --color-die-4: #82aaff;
+  --color-die-5: #c792ea;
+  --color-die-6: #21c7a8;
+}
