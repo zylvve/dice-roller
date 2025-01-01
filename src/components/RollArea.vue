@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { DiceVariant, Die } from './types';
+import type { DiceVariant, Die } from './ts/types';
 import DieContainer from './DieContainer.vue';
+import StatsSection from './StatsSection.vue';
 
 const props = defineProps<{
   dice: Die[];
@@ -67,6 +68,10 @@ const rollAll = () => {
     <div class="total">
       Total: {{ rollTotal }}
     </div>
+    <StatsSection
+      :dice="sortedDice"
+      :roll-total="rollTotal"
+    />
   </div>
 </template>
 

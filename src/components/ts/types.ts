@@ -11,3 +11,10 @@ export interface Die {
   maxValue: number;
   currentValue: number;
 }
+
+export type RollDistributionData = Array<SingleRollData>
+
+interface SingleRollData {
+  rollTotal: number;
+  count: number;
+}

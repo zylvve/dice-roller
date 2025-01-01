@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DieContainer from './DieContainer.vue';
-import type { DiceVariant } from './types';
+import type { DiceVariant } from './ts/types';
 
 defineProps<{
   diceVariants: DiceVariant[];

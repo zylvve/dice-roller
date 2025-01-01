@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import DicePanel from './DicePanel.vue';
 import RollArea from './RollArea.vue';
-import { type Die, type DiceVariant } from './types';
+import { type Die, type DiceVariant } from './ts/types';
 
 const diceVariants = ref<DiceVariant[]>([
   { id: 1, name: 'd4', maxValue: 4, count: 0 },
