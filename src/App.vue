@@ -13,4 +13,5 @@ import MainArea from './components/MainArea.vue';
 body {
   font-family: 'Open Sans';
 }
+
 </style>
