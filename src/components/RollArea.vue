@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import type { DiceVariant, Die } from './ts/types';
+import { computed, ref } from 'vue';
+import { type RollHistoryData, type DiceVariant, type Die } from './ts/types';
 import DieContainer from './DieContainer.vue';
 import StatsSection from './StatsSection.vue';
+import RollHistory from './RollHistory.vue';
 
 const props = defineProps<{
   dice: Die[];
@@ -40,7 +41,26 @@ const rollAll = () => {
   for (const die of props.dice) {
     emit("rollDie", die.id);
   }
+
+  let setId = 0;
+  const lastRecordedSet = history.value.slice(-1)[0]?.notation;
+  if (diceNotation.value !== lastRecordedSet) {
+    history.value.push({
+      id: setId++,
+      notation: diceNotation.value,
+      rolls: [],
+    })
+  }
+
+  let rollId = 0;
+  history.value[history.value.length - 1].rolls.push({
+    id: rollId++,
+    dieValues: props.dice.map(die => die.currentValue),
+    rollTotal: rollTotal.value,
+  })
 }
+
+const history = ref<RollHistoryData>([]);
 
 </script>
 
@@ -72,6 +92,7 @@ const rollAll = () => {
       :dice="sortedDice"
       :roll-total="rollTotal"
     />
+    <RollHistory :history="history"/>
   </div>
 </template>
 

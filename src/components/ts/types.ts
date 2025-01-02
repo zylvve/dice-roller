@@ -22,3 +22,16 @@ interface DataRow {
   count: number;
 }
 
+export type RollHistoryData = SetHistoryData[];
+
+interface SetHistoryData {
+  id: number;
+  notation: string;
+  rolls: Roll[];
+}
+
+interface Roll {
+  id: number;
+  dieValues: number[];
+  rollTotal: number;
+}
