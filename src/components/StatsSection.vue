@@ -14,7 +14,7 @@ const data = computed(() => {
 })
 
 const maxCount = computed(() =>
-  data.value.reduce((max, row) => ( row.count > max ) ? row.count : max, 0)
+  data.value.rows.reduce((max, row) => ( row.count > max ) ? row.count : max, 0)
 )
 
 const currentClass = ref('current');
@@ -26,7 +26,7 @@ const currentClass = ref('current');
     <div
       class="row"
       :class="[rollTotal === row.rollTotal ? currentClass : '']"
-      v-for="row in data"
+      v-for="row in data.rows"
       :key="row.rollTotal"
     >
       <span class="roll-total">{{ row.rollTotal }}</span>
@@ -35,8 +35,10 @@ const currentClass = ref('current');
           class="bar"
           :style="{ width: 90 * row.count / maxCount + '%'}">
         </span>
-        <span class="count">{{ row.count }}</span>
       </span>
+      <span class="count-and-probability">{{
+        row.count + ' (' + ( row.count / data.totalOutcomes * 100 ).toFixed(2) + '%)'
+      }}</span>
     </div>
   </section>
 </template>
@@ -52,7 +54,7 @@ const currentClass = ref('current');
 
 .row {
   display: flex;
-  width: 20rem;
+  width: 30rem;
   height: 1.5rem;
 }
 
@@ -62,8 +64,12 @@ const currentClass = ref('current');
 
 .bar-container {
   display: flex;
-  width: 18rem;
+  width: 21rem;
   height: 100%;
+}
+
+.count-and-probability {
+  width: 7rem;
 }
 
 .bar {

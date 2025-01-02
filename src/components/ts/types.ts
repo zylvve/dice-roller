@@ -12,9 +12,13 @@ export interface Die {
   currentValue: number;
 }
 
-export type RollDistributionData = Array<SingleRollData>
+export interface RollDistributionData {
+  rows: DataRow[];
+  totalOutcomes: number;
+}
 
-interface SingleRollData {
+interface DataRow {
   rollTotal: number;
   count: number;
 }
+

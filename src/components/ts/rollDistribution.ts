@@ -1,6 +1,6 @@
 import type { RollDistributionData } from "./types";
 
-export const rollDistribution = (maxValues: number[]) : RollDistributionData => {
+export function rollDistribution (maxValues: number[]) : RollDistributionData {
   let countArray = [1];
   let newCountArray;
   let currentMaxTotal = 0;
@@ -19,14 +19,16 @@ export const rollDistribution = (maxValues: number[]) : RollDistributionData => 
 
   const minRollTotal = maxValues.length;
   const maxRollTotal = maxValues.reduce((acc, value) => acc + value, 0);
-  const data: RollDistributionData = [];
+  const data: RollDistributionData = { rows: [], totalOutcomes: 1 };
 
   for (let rt = minRollTotal; rt <= maxRollTotal; ++rt) {
-    data.push({
+    data.rows.push({
       rollTotal: rt,
       count: countArray[rt],
     })
   }
+
+  data.totalOutcomes = maxValues.reduce((acc, maxValue) => acc * maxValue, 1);
 
   return data;
 }
