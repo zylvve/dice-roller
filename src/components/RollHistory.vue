@@ -7,12 +7,14 @@ defineProps<{
 </script>
 
 <template>
-  <h2>History</h2>
-  <div v-for="set in history" :key="set.id">
-    <div>{{ set.notation }}</div>
-    <div v-for="roll in set.rolls" :key="roll.id">
-      {{ roll.dieValues }}
-      {{ roll.rollTotal }}
+  <section class="history-section">
+    <h2>History</h2>
+    <div v-for="set in history" :key="set.id">
+      <div>{{ set.notation }}</div>
+      <div v-for="roll in set.rolls" :key="roll.id">
+        {{ roll.dieValues }}
+        {{ roll.rollTotal }}
+      </div>
     </div>
-  </div>
+  </section>
 </template>

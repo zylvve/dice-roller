@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import DicePanel from './DicePanel.vue';
 import RollArea from './RollArea.vue';
-import { type Die, type DiceVariant } from './ts/types';
+import StatsSection from './StatsSection.vue';
+import RollHistory from './RollHistory.vue';
+import { type Die, type DiceVariant, type RollHistoryData } from './ts/types';
 
 const diceVariants = ref<DiceVariant[]>([
   { id: 1, name: 'd4', maxValue: 4, count: 0 },
@@ -13,7 +15,14 @@ const diceVariants = ref<DiceVariant[]>([
   { id: 6, name: 'd20', maxValue: 20, count: 0 },
 ]);
 
-const dice = ref<Die[]>([]);
+const dice = ref<Die[]>([])
+
+const sortedDice = computed(() => {
+  const compareByMaxValue = (a: Die, b: Die) => a.maxValue - b.maxValue;
+  return [...dice.value].sort(compareByMaxValue);
+});
+
+const history = ref<RollHistoryData>([]);
 
 let dieId = 0;
 const addDie = (variantId: number) => {
@@ -36,6 +45,29 @@ const rollDie = (id: number) => {
   die.currentValue = Math.floor(Math.random() * die.maxValue) + 1;
 }
 
+const rollAll = () => {
+  for (const die of dice.value) {
+    rollDie(die.id);
+  }
+
+  let setId = 0;
+  const lastRecordedSet = history.value.slice(-1)[0]?.notation;
+  if (diceNotation.value !== lastRecordedSet) {
+    history.value.push({
+      id: setId++,
+      notation: diceNotation.value,
+      rolls: [],
+    })
+  }
+
+  let rollId = 0;
+  history.value[history.value.length - 1].rolls.push({
+    id: rollId++,
+    dieValues: dice.value.map(die => die.currentValue),
+    rollTotal: rollTotal.value,
+  })
+}
+
 const deleteDie = (id: number) => {
   const die = dice.value.find(d => d.id === id);
   if (!die) return;
@@ -46,19 +78,49 @@ const deleteDie = (id: number) => {
   dice.value = dice.value.filter(d => d.id !== id);
   variant.count--;
 }
+
+const diceNotation = computed(() => {
+  let notation = diceVariants.value.reduce((acc, variant) => {
+    if (variant.count > 1) acc += variant.count;
+    if (variant.count > 0) acc += 'd' + variant.maxValue + '+';
+    return acc;
+  }, "");
+
+  if (notation.slice(-1) === '+') {
+    notation = notation.slice(0, -1);
+  }
+  return notation;
+})
+
+const rollTotal = computed(() =>
+  dice.value.reduce((acc, die) => acc + die.currentValue, 0)
+);
+
 </script>
 
 <template>
   <main>
-    <DicePanel
-      :dice-variants="diceVariants"
-      @addDie="addDie"
-    />
-    <RollArea
-      :dice-variants="diceVariants"
-      :dice="dice"
-      @rollDie="rollDie"
-      @deleteDie="deleteDie"
+    <RollHistory :history="history"/>
+    <section class="main-section">
+      <DicePanel
+        :dice-variants="diceVariants"
+        @addDie="addDie"
+      />
+      <RollArea
+        :dice-variants="diceVariants"
+        :dice="sortedDice"
+        :history="history"
+        :dice-notation="diceNotation"
+        :roll-total="rollTotal"
+
+        @roll-die="rollDie"
+        @roll-all="rollAll"
+        @delete-die="deleteDie"
+      />
+    </section>
+    <StatsSection
+      :dice="sortedDice"
+      :roll-total="rollTotal"
     />
   </main>
 </template>
@@ -66,9 +128,9 @@ const deleteDie = (id: number) => {
 <style>
 main {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 
   font-weight: bold;
 
