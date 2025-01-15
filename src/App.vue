@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import MainArea from './components/MainArea.vue';
+import MainArea from './components/main-area/MainArea.vue';
 
 </script>
 
