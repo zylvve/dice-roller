@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import MainArea from './components/main-area/MainArea.vue';
 import HeaderPanel from './components/header/HeaderPanel.vue';
+import { ref } from 'vue';
 
+const theme = ref<string>("night-owl");
+const setTheme = (t: string) => {
+  theme.value = t;
+}
 </script>
 
 <template>
-  <HeaderPanel/>
-  <MainArea/>
+  <div class="app-container" :data-theme="theme">
+    <HeaderPanel @set-theme="setTheme"></HeaderPanel>
+    <MainArea/>
+  </div>
 </template>
 
 <style>
