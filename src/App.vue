@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import MainArea from './components/main-area/MainArea.vue';
+import HeaderPanel from './components/header/HeaderPanel.vue';
 
 </script>
 
 <template>
+  <HeaderPanel/>
   <MainArea/>
 </template>
 
