@@ -100,7 +100,6 @@ const rollTotal = computed(() =>
 
 <template>
   <main>
-    <RollHistory :history="history"/>
     <section class="main-section">
       <DicePanel
         :dice-variants="diceVariants"
@@ -118,6 +117,7 @@ const rollTotal = computed(() =>
         @delete-die="deleteDie"
       />
     </section>
+    <RollHistory :history="history"/>
     <StatsSection
       :dice="sortedDice"
       :roll-total="rollTotal"
@@ -130,11 +130,28 @@ main {
   min-height: 100vh;
 
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
 
   font-weight: bold;
 
   background-color: var(--color-bg-primary);
   color: var(--color-fg-primary);
+}
+
+@media screen and (min-width: 641px) and (max-width: 1007px) {
+  main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .main-section {
+    grid-column: span 2;
+  }
+}
+
+@media screen and (min-width: 1007px) {
+  main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .history-section {
+    order: -1;
+  }
 }
 </style>
