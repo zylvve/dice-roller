@@ -28,6 +28,8 @@ defineEmits<{
 <style>
 .dice-panel {
   display: flex;
+  justify-content: center;
+
   padding: 1rem;
   gap: 1rem;
 }

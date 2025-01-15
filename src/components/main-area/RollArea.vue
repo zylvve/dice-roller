@@ -50,6 +50,7 @@ defineEmits<{
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--color-bg-secondary);
 }
 .dice-container {
   display: flex;
@@ -67,7 +68,7 @@ defineEmits<{
   border: none;
   outline: none;
 
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-primary);
   color: var(--color-fg-primary);
 }
 </style>

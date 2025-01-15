@@ -18,3 +18,13 @@ defineProps<{
     </div>
   </section>
 </template>
+
+<style>
+.history-section {
+  padding: 1em;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+</style>
