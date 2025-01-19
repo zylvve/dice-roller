@@ -1,45 +1,66 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import type { Die } from './ts/types';
+import { computed, type ComputedRef } from 'vue';
+import type { Die, Probabilities } from './ts/types';
 import { rollDistribution } from './ts/rollDistribution';
+import CountsAndProbabilities from './stats-section/CountsAndProbabilities.vue';
+import DistributionGraph from './stats-section/DistributionGraph.vue';
 
 const props = defineProps<{
   dice: Die[];
   rollTotal: number;
 }>()
 
-const data = computed(() => {
+const distributionData = computed(() => {
   const maxValues = props.dice.map(die => die.maxValue);
   return rollDistribution(maxValues);
 })
 
-const maxCount = computed(() =>
-  data.value.rows.reduce((max, row) => ( row.count > max ) ? row.count : max, 0)
-)
+const probabilityCounts: ComputedRef<Probabilities> = computed(() => {
+  let less = 0, equal = 0;
+  for (const row of distributionData.value.rows) {{
+    if (row.rollTotal === props.rollTotal) {
+      equal = row.count;
+      break;
+    }
+    less += row.count;
+  }}
 
-const currentClass = ref('current');
+  return {
+    less,
+    lessOrEqual: less + equal,
+    equal,
+    moreOrEqual: distributionData.value.totalOutcomes - less,
+    more: distributionData.value.totalOutcomes - less - equal,
+  }
+})
+
+const probabilityPercentages: ComputedRef<Probabilities> = computed(() => {
+  const countToPercentage = (count: number) => count / distributionData.value.totalOutcomes * 100;
+  return {
+    less: countToPercentage(probabilityCounts.value.less),
+    lessOrEqual: countToPercentage(probabilityCounts.value.lessOrEqual),
+    equal: countToPercentage(probabilityCounts.value.equal),
+    moreOrEqual: countToPercentage(probabilityCounts.value.moreOrEqual),
+    more: countToPercentage(probabilityCounts.value.more),
+  }
+})
+
 </script>
 
 <template>
   <section class="stats-section">
     <h2>Stats</h2>
-    <div
-      class="row"
-      :class="[rollTotal === row.rollTotal ? currentClass : '']"
-      v-for="row in data.rows"
-      :key="row.rollTotal"
-    >
-      <span class="roll-total">{{ row.rollTotal }}</span>
-      <span class="bar-container">
-        <span
-          class="bar"
-          :style="{ width: 90 * row.count / maxCount + '%'}">
-        </span>
-      </span>
-      <span class="count-and-probability">{{
-        row.count + ' (' + ( row.count / data.totalOutcomes * 100 ).toFixed(2) + '%)'
-      }}</span>
-    </div>
+
+    <CountsAndProbabilities
+      :probability-counts="probabilityCounts"
+      :probability-percentages="probabilityPercentages"
+      :roll-total="props.rollTotal"
+    />
+
+    <DistributionGraph
+      :distribution-data="distributionData"
+      :roll-total="props.rollTotal"
+    />
   </section>
 </template>
 
@@ -51,38 +72,4 @@ const currentClass = ref('current');
   flex-direction: column;
   align-items: center;
 }
-
-.row {
-  display: flex;
-  width: 30rem;
-  height: 1.5rem;
-}
-
-.roll-total {
-  width: 2rem;
-}
-
-.bar-container {
-  display: flex;
-  width: 21rem;
-  height: 100%;
-}
-
-.count-and-probability {
-  width: 7rem;
-}
-
-.bar {
-  height: 100%;
-  background-color: var(--color-fg-primary);
-}
-
-.row.current .bar {
-  background-color: var(--color-hl);
-}
-
-.row.current {
-  color: var(--color-hl);
-}
-
 </style>

@@ -35,3 +35,11 @@ interface Roll {
   dieValues: number[];
   rollTotal: number;
 }
+
+export interface Probabilities {
+  less: number,
+  lessOrEqual: number,
+  equal: number,
+  moreOrEqual: number,
+  more: number,
+}
