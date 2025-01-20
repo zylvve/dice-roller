@@ -127,7 +127,7 @@ const rollTotal = computed(() =>
 
 <style>
 main {
-  min-height: 100vh;
+  height: calc(100vh - 50px);
 
   display: grid;
 

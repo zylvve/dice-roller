@@ -54,12 +54,14 @@ const probabilityPercentages: ComputedRef<Probabilities> = computed(() => {
     <CountsAndProbabilities
       :probability-counts="probabilityCounts"
       :probability-percentages="probabilityPercentages"
-      :roll-total="props.rollTotal"
+      :roll-total="rollTotal"
+      v-if="rollTotal > 0"
     />
 
     <DistributionGraph
       :distribution-data="distributionData"
-      :roll-total="props.rollTotal"
+      :roll-total="rollTotal"
+      v-if="rollTotal > 0"
     />
   </section>
 </template>

@@ -27,5 +27,6 @@ const setTheme = (theme: string) => {
   align-items: center;
 
   padding: 0 5px;
+  height: 50px;
 }
 </style>
