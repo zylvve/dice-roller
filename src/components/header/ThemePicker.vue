@@ -1,14 +1,16 @@
 <script setup lang="ts">
-defineEmits<{
-  setTheme: [theme: string]
-}>()
+import { store } from '../../store'
 </script>
 
 <template>
   <div class="theme-picker">
     <span class="theme">{{ $t('message.theme') }}</span>
-    <span class="dark" @click="$emit('setTheme', 'night-owl')">{{ $t('message.dark') }}</span>
-    <span class="light" @click="$emit('setTheme', 'night-owl-light')">{{ $t('message.light') }}</span>
+    <span class="dark" @click="store.setTheme('night-owl')">
+      {{ $t('message.dark') }}
+    </span>
+    <span class="light" @click="store.setTheme('night-owl-light')">
+      {{ $t('message.light') }}
+    </span>
   </div>
 </template>
 

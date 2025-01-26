@@ -2,20 +2,13 @@
 import LocaleSwitcher from './LocaleSwitcher.vue';
 import ThemePicker from './ThemePicker.vue';
 
-const emit = defineEmits<{
-  setTheme: [theme: string]
-}>()
-
-const setTheme = (theme: string) => {
-  emit('setTheme', theme);
-}
 </script>
 
 <template>
   <header class="header-panel">
     <h1>{{ $t('message.dice_roller_title') }}</h1>
     <LocaleSwitcher/>
-    <ThemePicker @set-theme="setTheme"/>
+    <ThemePicker/>
   </header>
 </template>
 
