@@ -6,9 +6,9 @@ defineEmits<{
 
 <template>
   <div class="theme-picker">
-    <span class="theme">Theme</span>
-    <span class="dark" @click="$emit('setTheme', 'night-owl')">dark</span>
-    <span class="light" @click="$emit('setTheme', 'night-owl-light')">light</span>
+    <span class="theme">{{ $t('message.theme') }}</span>
+    <span class="dark" @click="$emit('setTheme', 'night-owl')">{{ $t('message.dark') }}</span>
+    <span class="light" @click="$emit('setTheme', 'night-owl-light')">{{ $t('message.light') }}</span>
   </div>
 </template>
 

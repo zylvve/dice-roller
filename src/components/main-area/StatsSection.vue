@@ -49,7 +49,7 @@ const probabilityPercentages: ComputedRef<Probabilities> = computed(() => {
 
 <template>
   <section class="stats-section">
-    <h2>Stats</h2>
+    <h2>{{ $t('message.stats_title') }}</h2>
 
     <CountsAndProbabilities
       :probability-counts="probabilityCounts"

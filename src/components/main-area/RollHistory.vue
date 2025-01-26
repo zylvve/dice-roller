@@ -8,7 +8,7 @@ defineProps<{
 
 <template>
   <section class="history-section">
-    <h2>History</h2>
+    <h2>{{ $t('message.history_title') }}</h2>
     <div v-for="set in history" :key="set.id">
       <div>{{ set.notation }}</div>
       <div v-for="roll in set.rolls" :key="roll.id">

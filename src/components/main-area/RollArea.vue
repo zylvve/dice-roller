@@ -35,12 +35,14 @@ defineEmits<{
         </div>
       </DieContainer>
     </div>
-    <button class="roll-all-btn" @click="$emit('rollAll')">Roll all</button>
+    <button class="roll-all-btn" @click="$emit('rollAll')">
+      {{ $t('message.roll_all') }}
+    </button>
     <div class="dice-notation">
       {{ diceNotation }}
     </div>
     <div class="total">
-      Total: {{ rollTotal }}
+      {{ $t('message.total', { total: rollTotal }) }}
     </div>
   </div>
 </template>
