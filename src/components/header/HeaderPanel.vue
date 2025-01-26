@@ -14,7 +14,7 @@ import ThemePicker from './ThemePicker.vue';
   </header>
 </template>
 
-<style>
+<style lang="scss">
 .header-panel {
   background-color: var(--color-bg-secondary);
   color: var(--color-fg-primary);
@@ -30,14 +30,47 @@ import ThemePicker from './ThemePicker.vue';
 .settings-container {
   display: flex;
   gap: 5px;
-}
 
-.settings-container span {
-  font-weight: bold;
+  span {
+    font-weight: bold;
+  }
 }
 
 .setting {
   display: flex;
+  justify-content: flex-end;
+
   gap: 3px;
+  width: 10rem;
+
+  span {
+    padding: 0.2rem;
+  }
+
+  select {
+    appearance: none;
+    border: 0;
+    outline: 0;
+    font: inherit;
+
+    width: 5rem;
+    padding: 0.2rem;
+    background: var(--color-bg-primary);
+    color: var(--color-fg-primary);
+    cursor: pointer;
+
+    &::-ms-expand {
+      display: none;
+    }
+    &:focus {
+      outline: none;
+    }
+
+    option {
+      color: inherit;
+      background-color: var(--color-bg-primary);
+    }
+  }
 }
+
 </style>

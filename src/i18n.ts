@@ -36,7 +36,7 @@ const i18n = createI18n({
         light: "светлая",
 
         roll_all: "Бросить все",
-        total: "Всего {total}",
+        total: "Всего: {total}",
 
         history_title: "История",
 
