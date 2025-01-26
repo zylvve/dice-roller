@@ -1,35 +1,16 @@
 <script setup lang="ts">
 import { store } from '../../store'
+import { availableThemes } from '../../themes';
+
 </script>
 
 <template>
-  <div class="theme-picker">
+  <div class="setting theme-picker">
     <span class="theme">{{ $t('message.theme') }}</span>
-    <span class="dark" @click="store.setTheme('night-owl')">
-      {{ $t('message.dark') }}
-    </span>
-    <span class="light" @click="store.setTheme('night-owl-light')">
-      {{ $t('message.light') }}
-    </span>
+    <select v-model="store.theme">
+      <option v-for="theme in availableThemes" :key="`theme-${theme.label}`" :value="theme.value">
+        {{ $t(`message.${theme.label}`) }}
+      </option>
+    </select>
   </div>
 </template>
-
-<style>
-.theme-picker {
-  display: flex;
-}
-
-.theme-picker span {
-  padding: 0 0.3em;
-}
-
-.theme-picker .dark {
-  background-color: #011627;
-  color: #d6deeb;
-}
-
-.theme-picker .light {
-  background-color: #ffffff;
-  color: #403f53;
-}
-</style>

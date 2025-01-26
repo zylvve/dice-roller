@@ -8,6 +8,7 @@ const i18n = createI18n({
       message: {
         dice_roller_title: "Dice Roller",
 
+        language: "Language",
         theme: "Theme",
         dark: "dark",
         light: "light",
@@ -29,6 +30,7 @@ const i18n = createI18n({
       message: {
         dice_roller_title: "Игральные кости",
 
+        language: "Язык",
         theme: "Tема",
         dark: "тёмная",
         light: "светлая",
